@@ -16,6 +16,7 @@
 
 package io.appulse.encon.terms.type;
 
+import java.util.Objects;
 import static io.appulse.encon.terms.TermType.PID;
 import static java.util.Optional.ofNullable;
 import static lombok.AccessLevel.PRIVATE;
@@ -28,7 +29,6 @@ import io.appulse.encon.terms.exception.IllegalErlangTermTypeException;
 
 import io.netty.buffer.ByteBuf;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
@@ -41,7 +41,6 @@ import lombok.experimental.NonFinal;
  * @author Artem Labazin
  */
 @Getter
-@EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ErlangPid extends ErlangTerm {
 
@@ -113,13 +112,34 @@ public class ErlangPid extends ErlangTerm {
 
   @Override
   public String toString () {
-    return new StringBuilder()
-        .append("#PID<")
-        .append(creation).append('.')
-        .append(id).append('.')
-        .append(serial)
-        .append('>')
-        .toString();
+    return "#PID<" + creation + '.' + id + '.' + serial + '>';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ErlangPid that = (ErlangPid) o;
+    return getDescriptor() == that.getDescriptor() &&
+            getNode() == getNode() &&
+            getId() == that.getId() &&
+            getSerial() == that.getSerial() &&
+            getCreation() == that.getCreation();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+            getDescriptor(),
+            getNode(),
+            getId(),
+            getSerial(),
+            getCreation()
+    );
   }
 
   /**

@@ -19,12 +19,12 @@ First of all, add databind's dependency:
   <dependency>
     <groupId>io.appulse.encon</groupId>
     <artifactId>encon</artifactId>
-    <version>1.6.9</version>
+    <version>1.6.12-emal</version>
   </dependency>
   <dependency>
     <groupId>io.appulse.encon</groupId>
     <artifactId>encon-databind</artifactId>
-    <version>1.6.9</version>
+    <version>1.6.12-emal</version>
   </dependency>
   ...
 </dependencies>

@@ -19,7 +19,7 @@ First of all, add config's dependency:
   <dependency>
     <groupId>io.appulse.encon</groupId>
     <artifactId>encon-config</artifactId>
-    <version>1.6.9</version>
+    <version>1.6.12-emal</version>
   </dependency>
   ...
 </dependencies>

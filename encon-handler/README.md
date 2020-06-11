@@ -19,7 +19,7 @@ First of all, add dependency:
   <dependency>
     <groupId>io.appulse.encon</groupId>
     <artifactId>encon-handler</artifactId>
-    <version>1.6.9</version>
+    <version>1.6.12-emal</version>
   </dependency>
   ...
 </dependencies>
