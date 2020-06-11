@@ -17,9 +17,9 @@ First of all, add dependency:
 <dependencies>
   ...
   <dependency>
-    <groupId>io.appulse.encon</groupId>
+    <groupId>com.tkroman</groupId>
     <artifactId>encon-handler</artifactId>
-    <version>1.6.12-emal</version>
+    <version>1.6.12</version>
   </dependency>
   ...
 </dependencies>

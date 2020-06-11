@@ -17,14 +17,14 @@ First of all, add databind's dependency:
 <dependencies>
   ...
   <dependency>
-    <groupId>io.appulse.encon</groupId>
+    <groupId>com.tkroman</groupId>
     <artifactId>encon</artifactId>
-    <version>1.6.12-emal</version>
+    <version>1.6.12</version>
   </dependency>
   <dependency>
-    <groupId>io.appulse.encon</groupId>
+    <groupId>com.tkroman</groupId>
     <artifactId>encon-databind</artifactId>
-    <version>1.6.12-emal</version>
+    <version>1.6.12</version>
   </dependency>
   ...
 </dependencies>

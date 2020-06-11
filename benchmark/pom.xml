@@ -23,9 +23,9 @@ limitations under the License.
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.appulse.encon</groupId>
+    <groupId>com.tkroman</groupId>
     <artifactId>encon-parent</artifactId>
-    <version>1.6.12-emal</version>
+    <version>1.6.14</version>
   </parent>
 
   <artifactId>benchmark</artifactId>
@@ -46,7 +46,7 @@ limitations under the License.
     </dependency>
 
     <dependency>
-      <groupId>io.appulse.encon</groupId>
+      <groupId>com.tkroman</groupId>
       <artifactId>encon</artifactId>
       <version>${project.version}</version>
     </dependency>

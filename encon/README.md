@@ -24,9 +24,9 @@ Adding encon's dependency to your `JVM` app:
 <dependencies>
   ...
   <dependency>
-    <groupId>io.appulse.encon</groupId>
+    <groupId>com.tkroman</groupId>
     <artifactId>encon</artifactId>
-    <version>1.6.12-emal</version>
+    <version>1.6.12</version>
   </dependency>
   ...
 </dependencies>

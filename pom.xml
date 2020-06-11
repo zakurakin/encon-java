@@ -22,9 +22,9 @@ limitations under the License.
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.appulse.encon</groupId>
+  <groupId>com.tkroman</groupId>
   <artifactId>encon-parent</artifactId>
-  <version>1.6.12-emal</version>
+  <version>1.6.14</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -54,12 +54,12 @@ limitations under the License.
   <description>
     Java based Erlang Node Connector
   </description>
-  <url>https://github.com/appulse-projects/encon-java</url>
+  <url>https://github.com/tkroman/encon-java</url>
   <inceptionYear>2018</inceptionYear>
 
   <organization>
-    <name>Appulse</name>
-    <url>https://github.com/appulse-projects</url>
+    <name>com.tkroman</name>
+    <url>https://github.com/tkroman</url>
   </organization>
 
   <licenses>
@@ -71,10 +71,10 @@ limitations under the License.
   </licenses>
 
   <scm>
-    <url>https://github.com/appulse-projects/encon-java</url>
-    <connection>scm:git:https://github.com/appulse-projects/encon-java.git</connection>
-    <developerConnection>scm:git:https://github.com/appulse-projects/encon-java.git</developerConnection>
-    <tag>1.6.9</tag>
+    <url>https://github.com/tkroman/encon-java</url>
+    <connection>scm:git:https://github.com/tkroman/encon-java.git</connection>
+    <developerConnection>scm:git:https://github.com/tkroman/encon-java.git</developerConnection>
+    <tag>1.6.12</tag>
   </scm>
 
   <distributionManagement>
@@ -90,12 +90,12 @@ limitations under the License.
 
   <issueManagement>
     <system>Github</system>
-    <url>https://github.com/appulse-projects/encon-java/issues</url>
+    <url>https://github.com/tkroman/encon-java/issues</url>
   </issueManagement>
 
   <ciManagement>
     <system>Travis</system>
-    <url>https://travis-ci.org/appulse-projects/encon-java</url>
+    <url>https://travis-ci.org/tkroman/encon-java</url>
   </ciManagement>
 
   <developers>
@@ -113,6 +113,11 @@ limitations under the License.
       <id>isv</id>
       <name>Stan Ignatev</name>
       <email>i.v.stanislav@gmail.com</email>
+    </developer>
+    <developer>
+      <id>tkroman</id>
+      <name>Roman Tkalenko</name>
+      <email>rmn.tk.ml@gmail.com</email>
     </developer>
   </developers>
 
@@ -312,13 +317,13 @@ limitations under the License.
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>2.10.4</version>
           <configuration>
-            <additionalOptions>-Xdoclint:none</additionalOptions>
+            <additionalparam>-Xdoclint:none</additionalparam>
             <additionalparam>-Xdoclint:none</additionalparam>
             <breakiterator>true</breakiterator>
             <charset>UTF-8</charset>
             <docencoding>UTF-8</docencoding>
             <encoding>UTF-8</encoding>
-            <failOnError>true</failOnError>
+            <failOnError>false</failOnError>
             <show>protected</show>
             <source>1.8</source>
             <version>true</version>

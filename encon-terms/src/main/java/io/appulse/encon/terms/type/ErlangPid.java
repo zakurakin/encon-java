@@ -16,10 +16,11 @@
 
 package io.appulse.encon.terms.type;
 
-import java.util.Objects;
 import static io.appulse.encon.terms.TermType.PID;
 import static java.util.Optional.ofNullable;
 import static lombok.AccessLevel.PRIVATE;
+
+import java.util.Objects;
 
 import io.appulse.encon.common.NodeDescriptor;
 import io.appulse.encon.terms.Erlang;
@@ -33,6 +34,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+
 
 /**
  * A process identifier, pid, identifies a process.
@@ -116,7 +118,7 @@ public class ErlangPid extends ErlangTerm {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals (Object o) {
     if (this == o) {
       return true;
     }
@@ -132,7 +134,7 @@ public class ErlangPid extends ErlangTerm {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode () {
     return Objects.hash(
             getDescriptor(),
             getNode(),
