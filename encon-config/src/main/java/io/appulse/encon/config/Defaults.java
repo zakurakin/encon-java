@@ -36,6 +36,8 @@ import static java.util.stream.Collectors.toSet;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -126,6 +128,11 @@ public class Defaults {
         .map(Integer::parseInt)
         .ifPresent(builder::epmdPort);
 
+    ofNullable(map.get("epmd-host"))
+            .map(Object::toString)
+            .map(NodeConfig.GET_INET_ADDRESS)
+            .ifPresent(builder::epmdHost);
+
     ofNullable(map.get("type"))
         .map(Object::toString)
         .map(NodeType::valueOf)
@@ -184,6 +191,9 @@ public class Defaults {
 
   @Builder.Default
   int epmdPort = EpmdDefaults.PORT;
+
+  @Builder.Default
+  InetAddress epmdHost = EpmdDefaults.ADDRESS;
 
   @Builder.Default
   NodeType type = R6_ERLANG;

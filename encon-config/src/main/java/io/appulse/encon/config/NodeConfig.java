@@ -22,10 +22,13 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 import static lombok.AccessLevel.PRIVATE;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
 import io.appulse.encon.common.DistributionFlag;
 import io.appulse.epmd.java.core.model.NodeType;
@@ -66,6 +69,11 @@ public class NodeConfig {
         .map(Object::toString)
         .map(Integer::parseInt)
         .ifPresent(builder::epmdPort);
+
+    ofNullable(map.get("epmd-host"))
+            .map(Object::toString)
+            .map(GET_INET_ADDRESS)
+            .ifPresent(builder::epmdHost);
 
     ofNullable(map.get("type"))
         .map(Object::toString)
@@ -128,6 +136,8 @@ public class NodeConfig {
 
   Integer epmdPort;
 
+  InetAddress epmdHost;
+
   NodeType type;
 
   Boolean shortName;
@@ -157,6 +167,7 @@ public class NodeConfig {
    */
   public NodeConfig (NodeConfig nodeConfig) {
     epmdPort = nodeConfig.getEpmdPort();
+    epmdHost = nodeConfig.getEpmdHost();
     type = nodeConfig.getType();
     shortName = nodeConfig.getShortName();
     cookie = nodeConfig.getCookie();
@@ -190,6 +201,9 @@ public class NodeConfig {
   public NodeConfig withDefaultsFrom (@NonNull Defaults defaults) {
     epmdPort = ofNullable(epmdPort)
         .orElse(defaults.getEpmdPort());
+
+    epmdHost = ofNullable(epmdHost)
+            .orElse(defaults.getEpmdHost());
 
     type = ofNullable(type)
         .orElse(defaults.getType());
@@ -230,4 +244,12 @@ public class NodeConfig {
 
     return this;
   }
+
+  static Function<String, InetAddress> GET_INET_ADDRESS = host -> {
+      try {
+        return InetAddress.getByName(host);
+      } catch (UnknownHostException e) {
+        throw new IllegalArgumentException(e);
+      }
+    };
 }

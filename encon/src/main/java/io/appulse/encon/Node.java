@@ -75,7 +75,10 @@ public final class Node implements Closeable {
         .flags(config.getDistributionFlags())
         .build();
 
-    val epmd = new EpmdClient(config.getEpmdPort());
+    val epmd = new EpmdClient(
+            config.getEpmdHost(),
+            config.getEpmdPort()
+    );
     val creation = epmd.register(Registration.builder()
         .name(descriptor.getNodeName())
         .port(config.getServer().getPort())

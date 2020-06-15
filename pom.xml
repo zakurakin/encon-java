@@ -24,7 +24,7 @@ limitations under the License.
 
   <groupId>com.tkroman</groupId>
   <artifactId>encon-parent</artifactId>
-  <version>1.6.14</version>
+  <version>1.6.15</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -252,62 +252,6 @@ limitations under the License.
               <goals>
                 <goal>check</goal>
               </goals>
-            </execution>
-          </executions>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-pmd-plugin</artifactId>
-          <version>3.11.0</version>
-          <configuration>
-            <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-            <targetJdk>${maven.compiler.source}</targetJdk>
-            <verbose>true</verbose>
-            <failOnViolation>true</failOnViolation>
-            <printFailingErrors>true</printFailingErrors>
-            <analysisCache>true</analysisCache>
-            <linkXRef>false</linkXRef>
-            <rulesets>
-              <ruleset>${project.basedir}/../.codestyle/pmd.xml</ruleset>
-            </rulesets>
-          </configuration>
-          <executions>
-            <execution>
-              <phase>package</phase>
-              <goals>
-                <goal>check</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>3.0.0</version>
-          <dependencies>
-            <dependency>
-              <groupId>com.puppycrawl.tools</groupId>
-              <artifactId>checkstyle</artifactId>
-              <version>8.19</version>
-            </dependency>
-          </dependencies>
-          <executions>
-            <execution>
-              <id>validate</id>
-              <phase>package</phase>
-              <goals>
-                <goal>check</goal>
-              </goals>
-              <configuration>
-                <configLocation>${project.basedir}/../.codestyle/checkstyle.xml</configLocation>
-                <consoleOutput>true</consoleOutput>
-                <failsOnError>true</failsOnError>
-                <failOnViolation>true</failOnViolation>
-                <linkXRef>false</linkXRef>
-                <propertyExpansion>codestyleFolder=${project.basedir}/../.codestyle</propertyExpansion>
-              </configuration>
             </execution>
           </executions>
         </plugin>
