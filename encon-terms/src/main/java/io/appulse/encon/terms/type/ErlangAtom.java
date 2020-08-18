@@ -24,6 +24,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 import io.appulse.encon.terms.ErlangTerm;
 import io.appulse.encon.terms.TermType;
@@ -47,7 +48,6 @@ import lombok.experimental.FieldDefaults;
  */
 @ToString
 @SuppressWarnings("deprecation")
-@EqualsAndHashCode(callSuper = true, of = "bytes")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ErlangAtom extends ErlangTerm {
 
@@ -178,5 +178,18 @@ public class ErlangAtom extends ErlangTerm {
 
   private String createString () {
     return new String(bytes, charset);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ErlangAtom that = (ErlangAtom) o;
+    return Arrays.equals(bytes, that.bytes);
+  }
+
+  @Override
+  public int hashCode() {
+    return Arrays.hashCode(bytes);
   }
 }

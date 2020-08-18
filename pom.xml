@@ -24,7 +24,7 @@ limitations under the License.
 
   <groupId>com.tkroman</groupId>
   <artifactId>encon-parent</artifactId>
-  <version>1.6.15</version>
+  <version>1.6.17</version>
   <packaging>pom</packaging>
 
   <properties>
