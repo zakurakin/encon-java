@@ -24,7 +24,7 @@ limitations under the License.
 
   <groupId>com.tkroman</groupId>
   <artifactId>encon-parent</artifactId>
-  <version>1.6.17</version>
+  <version>1.7</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -39,6 +39,7 @@ limitations under the License.
   </properties>
 
   <modules>
+    <module>jinterface</module>
     <module>encon-common</module>
     <module>encon-terms</module>
     <module>encon-config</module>
@@ -154,13 +155,6 @@ limitations under the License.
         <artifactId>server</artifactId>
         <version>2.0.0</version>
       </dependency>
-
-      <dependency>
-        <groupId>org.erlang.otp</groupId>
-        <artifactId>jinterface</artifactId>
-        <version>1.6.1</version>
-      </dependency>
-
       <dependency>
         <groupId>com.google.code.findbugs</groupId>
         <artifactId>annotations</artifactId>
@@ -171,7 +165,6 @@ limitations under the License.
         <artifactId>jsr305</artifactId>
         <version>3.0.2</version>
       </dependency>
-
       <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty-buffer</artifactId>

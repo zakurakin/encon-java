@@ -129,12 +129,18 @@ public enum DistributionFlag {
   /**
    * The node creation is big integer.
    */
-  BIG_CREATION(0x40000);
+  BIG_CREATION(0x40000),
+
+  HANDSHAKE_23(0x1000000),
+
+  UNLINK_ID(0x2000000),
+
+  V4_NC(1L << 34);
 
   @Getter
-  int code;
+  long code;
 
-  DistributionFlag (int code) {
+  DistributionFlag (long code) {
     this.code = code;
   }
 
@@ -146,10 +152,10 @@ public enum DistributionFlag {
    *
    * @return integer representation of flags
    */
-  public static int bitwiseOr (DistributionFlag... flags) {
+  public static long bitwiseOr (DistributionFlag... flags) {
     return Stream.of(flags)
         .map(DistributionFlag::getCode)
-        .reduce(0, (left, right) -> left | right);
+        .reduce(0L, (left, right) -> left | right);
   }
 
   /**
@@ -160,10 +166,10 @@ public enum DistributionFlag {
    *
    * @return integer representation of flags
    */
-  public static int bitwiseOr (Collection<DistributionFlag> flags) {
+  public static long bitwiseOr (Collection<DistributionFlag> flags) {
     return flags.stream()
         .map(DistributionFlag::getCode)
-        .reduce(0, (left, right) -> left | right);
+        .reduce(0L, (left, right) -> left | right);
   }
 
   /**
@@ -173,7 +179,7 @@ public enum DistributionFlag {
    *
    * @return set of parsed distribution flags
    */
-  public static Set<DistributionFlag> parse (int number) {
+  public static Set<DistributionFlag> parse (long number) {
     return Stream.of(values())
         .filter(it -> (number & it.getCode()) != 0)
         .collect(toSet());

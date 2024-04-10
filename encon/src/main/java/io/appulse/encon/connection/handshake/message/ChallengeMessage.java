@@ -23,12 +23,12 @@ import static lombok.AccessLevel.PRIVATE;
 import java.util.Set;
 
 import io.appulse.encon.common.DistributionFlag;
-import io.appulse.epmd.java.core.model.Version;
 
 import io.netty.buffer.ByteBuf;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
@@ -44,11 +44,14 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode(callSuper = true)
 public class ChallengeMessage extends Message {
 
-  Version distribution;
 
   Set<DistributionFlag> flags;
 
   int challenge;
+
+  int creation;
+
+  short nLen;
 
   String fullName;
 
@@ -57,29 +60,35 @@ public class ChallengeMessage extends Message {
   }
 
   @Builder
-  private ChallengeMessage (Version distribution, @Singular Set<DistributionFlag> flags,
-                            int challenge, String fullName
+  private ChallengeMessage (@Singular Set<DistributionFlag> flags,
+                            int challenge,
+                            int creation,
+                            short nLen,
+                            @NonNull String fullName
   ) {
     this();
-    this.distribution = distribution;
     this.flags = flags;
     this.challenge = challenge;
+    this.creation = creation;
+    this.nLen = nLen;
     this.fullName = fullName;
   }
 
   @Override
   void write (ByteBuf buffer) {
-    buffer.writeShort(distribution.getCode());
-    buffer.writeInt(DistributionFlag.bitwiseOr(flags));
+    buffer.writeLong(DistributionFlag.bitwiseOr(flags));
     buffer.writeInt(challenge);
+    buffer.writeInt(creation);
+    buffer.writeShort(((short) fullName.getBytes(ISO_8859_1).length));
     buffer.writeCharSequence(fullName, ISO_8859_1);
   }
 
   @Override
   void read (ByteBuf buffer) {
-    distribution = Version.of(buffer.readShort());
-    flags = DistributionFlag.parse(buffer.readInt());
+    flags = DistributionFlag.parse(buffer.readLong());
     challenge = buffer.readInt();
+    creation = buffer.readInt();
+    nLen = buffer.readShort();
     fullName = buffer.readCharSequence(buffer.readableBytes(), ISO_8859_1).toString();
   }
 }

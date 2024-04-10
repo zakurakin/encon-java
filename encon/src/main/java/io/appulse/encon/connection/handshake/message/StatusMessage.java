@@ -18,7 +18,6 @@ package io.appulse.encon.connection.handshake.message;
 
 import static io.appulse.encon.connection.handshake.message.MessageType.STATUS;
 import static java.nio.charset.StandardCharsets.ISO_8859_1;
-import static java.util.Locale.ENGLISH;
 import static lombok.AccessLevel.PRIVATE;
 
 import java.util.stream.Stream;
@@ -50,14 +49,14 @@ public class StatusMessage extends Message {
   }
 
   @Builder
-  private StatusMessage (@NonNull Status status) {
+  protected StatusMessage (@NonNull Status status) {
     this();
     this.status = status;
   }
 
   @Override
   void write (ByteBuf buffer) {
-    val statusName = status.name().toLowerCase(ENGLISH);
+    val statusName = status.getName();
     buffer.writeCharSequence(statusName, ISO_8859_1);
   }
 
@@ -72,34 +71,47 @@ public class StatusMessage extends Message {
     /**
      * The handshake will continue.
      */
-    OK,
+    OK("ok"),
     /**
      * The handshake will continue, but A is informed that B has another ongoing connection attempt
      * that will be shut down (simultaneous connect where A's name is greater than B's name, compared literally).
      */
-    OK_SIMULTANEOUS,
+    OK_SIMULTANEOUS("ok_simultaneous"),
     /**
      * The handshake will not continue, as B already has an ongoing handshake,
      * which it itself has initiated (simultaneous connect where B's name is greater than A's).
      */
-    NOK,
+    NOK("nok"),
     /**
      * The connection is disallowed for some (unspecified) security reason.
      */
-    NOT_ALLOWED,
+    NOT_ALLOWED("not_allowed"),
     /**
      * A connection to the node is already active, which either means that node A is confused or
      * that the TCP connection breakdown of a previous node with this name has not yet reached node B.
      */
-    ALIVE,
+    ALIVE("alive"),
+    /**
+     * The handshake will continue, but A requested a dynamic node name by setting flag DFLAG_NAME_ME.
+     * The dynamic node name of A is supplied at the end of the status message from B. The host name of A
+     * which was sent as Name in send_name will be used by node B to generate the full dynamic node name.
+     */
+    NAMED("named:"),
     /**
      * Unknown status.
      */
-    UNDEFINED;
+    UNDEFINED("undefined");
+
+    @Getter
+    final String name;
+
+    Status(String name) {
+        this.name = name;
+    }
 
     public static Status of (@NonNull String string) {
       return Stream.of(values())
-          .filter(it -> it.name().equalsIgnoreCase(string))
+          .filter(it -> it.getName().equalsIgnoreCase(string))
           .findAny()
           .orElse(UNDEFINED);
     }
