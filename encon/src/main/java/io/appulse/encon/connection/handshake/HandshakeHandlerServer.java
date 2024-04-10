@@ -19,6 +19,7 @@ package io.appulse.encon.connection.handshake;
 import static io.appulse.encon.connection.handshake.message.StatusMessage.Status.OK;
 import static lombok.AccessLevel.PRIVATE;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
@@ -93,9 +94,10 @@ class HandshakeHandlerServer extends AbstractHandshakeHandler {
 
     ourChallenge = ThreadLocalRandom.current().nextInt();
     val challengeMessage = ChallengeMessage.builder()
-        .distribution(node.getMeta().getLow())
-        .flags(node.getMeta().getFlags())
-        .challenge(ourChallenge)
+            .flags(node.getMeta().getFlags())
+            .challenge(ourChallenge)
+            .creation(message.getCreation())
+            .nLen((short) node.getDescriptor().getFullName().getBytes(StandardCharsets.ISO_8859_1).length)
         .fullName(node.getDescriptor().getFullName())
         .build();
     context.writeAndFlush(challengeMessage);

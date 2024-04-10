@@ -23,7 +23,6 @@ import static lombok.AccessLevel.PRIVATE;
 import java.util.Set;
 
 import io.appulse.encon.common.DistributionFlag;
-import io.appulse.epmd.java.core.model.Version;
 
 import io.netty.buffer.ByteBuf;
 import lombok.Builder;
@@ -45,10 +44,9 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode(callSuper = true)
 public class NameMessage extends Message {
 
-  Version distribution;
-
   Set<DistributionFlag> flags;
-
+  int creation;
+  short nLen;
   String fullNodeName;
 
   public NameMessage () {
@@ -56,25 +54,30 @@ public class NameMessage extends Message {
   }
 
   @Builder
-  private NameMessage (@NonNull Version distribution, @Singular Set<DistributionFlag> flags,
+  private NameMessage (@Singular Set<DistributionFlag> flags,
+                       int creation,
+                       short nLen,
                        @NonNull String fullNodeName) {
     this();
-    this.distribution = distribution;
     this.flags = flags;
+    this.creation = creation;
+    this.nLen = nLen;
     this.fullNodeName = fullNodeName;
   }
 
   @Override
   void write (ByteBuf buffer) {
-    buffer.writeShort(distribution.getCode());
-    buffer.writeInt(DistributionFlag.bitwiseOr(flags));
+    buffer.writeLong(DistributionFlag.bitwiseOr(flags));
+    buffer.writeInt(creation);
+    buffer.writeShort(((short) fullNodeName.getBytes(ISO_8859_1).length));
     buffer.writeCharSequence(fullNodeName, ISO_8859_1);
   }
 
   @Override
   void read (ByteBuf buffer) {
-    distribution = Version.of(buffer.readShort());
-    flags = DistributionFlag.parse(buffer.readInt());
+    flags = DistributionFlag.parse(buffer.readLong());
+    creation = buffer.readInt();
+    nLen = buffer.readShort();
     fullNodeName = buffer.readCharSequence(buffer.readableBytes(), ISO_8859_1).toString();
   }
 }

@@ -18,6 +18,7 @@ package io.appulse.encon.connection.handshake;
 
 import static lombok.AccessLevel.PRIVATE;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
@@ -77,9 +78,10 @@ class HandshakeHandlerClient extends AbstractHandshakeHandler {
   public void channelActive (ChannelHandlerContext context) throws Exception {
     super.channelActive(context);
     val nameMessage = NameMessage.builder()
-        .fullNodeName(node.getDescriptor().getFullName())
-        .distribution(HandshakeUtils.findHighestCommonVerion(node, remote))
-        .flags(node.getMeta().getFlags())
+            .flags(node.getMeta().getFlags())
+            .creation(node.getDescriptor().hashCode())
+            .nLen((short) node.getDescriptor().getFullName().getBytes(StandardCharsets.ISO_8859_1).length)
+            .fullNodeName(node.getDescriptor().getFullName())
         .build();
 
     log.debug("Sending name message\n  {}\n", nameMessage);

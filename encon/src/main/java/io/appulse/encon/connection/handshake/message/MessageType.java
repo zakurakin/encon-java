@@ -28,9 +28,9 @@ import lombok.Getter;
 @Getter
 public enum MessageType {
 
-  NAME('n', NameMessage.class),
+  NAME('N', NameMessage.class),
   STATUS('s', StatusMessage.class),
-  CHALLENGE('n', ChallengeMessage.class),
+  CHALLENGE('N', ChallengeMessage.class),
   CHALLENGE_REPLY('r', ChallengeReplyMessage.class),
   CHALLENGE_ACKNOWLEDGE('a', ChallengeAcknowledgeMessage.class),
   UNDEFINED('0', Message.class);
@@ -47,8 +47,6 @@ public enum MessageType {
   public static boolean check (byte tag, Class<? extends Message> type) {
     return Stream.of(values())
         .filter(it -> it.getTag() == tag)
-        .filter(it -> it.getType() == type)
-        .findAny()
-        .isPresent();
+        .anyMatch(it -> it.getType() == type);
   }
 }

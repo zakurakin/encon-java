@@ -25,7 +25,7 @@ limitations under the License.
   <parent>
     <groupId>com.tkroman</groupId>
     <artifactId>encon-parent</artifactId>
-    <version>1.6.17</version>
+    <version>1.7</version>
   </parent>
 
   <artifactId>benchmark</artifactId>
@@ -51,8 +51,9 @@ limitations under the License.
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.erlang.otp</groupId>
+      <groupId>com.tkroman</groupId>
       <artifactId>jinterface</artifactId>
+      <version>1.14-OTP26</version>
     </dependency>
 
     <dependency>
